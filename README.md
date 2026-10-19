@@ -1,84 +1,44 @@
-# SQL Eurostat Analysis – Mercato del lavoro italiano
+Analisi degli indicatori del mercato del lavoro in Italia (2022–2024)
+Descrizione del progetto
+Il progetto analizza alcuni indicatori del mercato del lavoro italiano a livello regionale nel periodo 2022–2024, con particolare attenzione alla relazione tra tasso di disoccupazione, percentuale di popolazione laureata e quota di giovani NEET.
 
-## Descrizione del progetto
+L'obiettivo è confrontare gli indicatori tra le macroaree geografiche italiane — Nord, Centro e Mezzogiorno — e descriverne l'andamento nel tempo attraverso interrogazioni SQL.
+Obiettivi dell'analisi
+- Analizzare le differenze territoriali nel tasso di disoccupazione.
+- Confrontare la percentuale di popolazione laureata tra le macroaree.
+- Esaminare la distribuzione della quota di giovani NEET.
+- Calcolare le medie regionali per macroarea e anno.
+- Utilizzare SQL per aggregare, collegare e analizzare dati strutturati.
+Strumenti utilizzati
+- MySQL – interrogazione e analisi dei dati.
+- phpMyAdmin e XAMPP – gestione del database e verifica delle query.
+- SQL – JOIN, funzioni aggregate (AVG, COUNT), ROUND, GROUP BY e ORDER BY.
+Struttura del database
+Il database progetto_tesi comprende quattro tabelle:
+- regioni: informazioni sulle regioni italiane e sulla relativa macroarea geografica.
+- anni: anni di riferimento dell'analisi.
+- indicatori_regionali: tasso di disoccupazione, percentuale di laureati e quota NEET per regione e anno.
+- disoccupazione_demografica: indicatori di disoccupazione articolati per caratteristiche demografiche.
+Risultati principali
+Le medie semplici dei valori regionali evidenziano differenze territoriali nel periodo considerato.
+- Disoccupazione: la media regionale del Mezzogiorno passa dal 12,36% nel 2022 al 10,13% nel 2024.
+- Popolazione laureata: il Centro registra la media più elevata in ciascuno dei tre anni, passando dal 23,33% nel 2022 al 25,35% nel 2024.
+- Giovani NEET: il Mezzogiorno presenta le medie più elevate, pur passando dal 24,64% nel 2022 al 21,15% nel 2024.
+- Nord: tra il 2022 e il 2024, la media regionale della disoccupazione diminuisce dal 5,16% al 4,04%, mentre quella dei NEET passa dal 13,55% al 9,94%.
+I risultati descrivono differenze territoriali e variazioni nel tempo. Non dimostrano, da soli, un rapporto causale tra livello di istruzione e disoccupazione.
 
-Progetto personale di analisi dei dati sul mercato del lavoro italiano mediante SQL. L'obiettivo è organizzare e interrogare dati relativi all'occupazione e alla disoccupazione, con particolare attenzione alle differenze territoriali, alla disoccupazione giovanile e al divario di genere.
-
-Il progetto applica concetti di database relazionali e interrogazioni SQL per analizzare e confrontare gli indicatori del mercato del lavoro.
-
-## Obiettivi
-
-- Analizzare gli indicatori occupazionali a livello regionale.
-- Esaminare le differenze tra le macroaree geografiche italiane.
-- Approfondire la disoccupazione giovanile e le differenze di genere.
-- Utilizzare query SQL per aggregare e confrontare i dati.
-
-## Dati e fonti
-
-- **Fonte:** Eurostat.
-- **Area geografica:** regioni italiane.
-- **Periodo analizzato:** 2022–2024.
-- **Indicatori:** tasso di disoccupazione generale, percentuale di laureati, quota di giovani NEET, tasso di disoccupazione maschile, tasso di disoccupazione femminile e tasso di disoccupazione giovanile.
-
-**Fonte dati:** [Eurostat – Regional unemployment rates (lfst_r_lfu3rt)](https://ec.europa.eu/eurostat/databrowser/product/view/lfst_r_lfu3rt).
-
-*Nota: verificare che la fonte citata copra tutti gli indicatori utilizzati. Se necessario, aggiungere i collegamenti agli altri dataset.*
-
-## Struttura del database
-
-Il database relazionale `progetto_tesi` è organizzato nelle seguenti tabelle:
-
-| Tabella | Descrizione |
-|---|---|
-| `regioni` | Anagrafica delle regioni italiane. |
-| `anni` | Riferimenti temporali delle rilevazioni. |
-| `indicatori_regionali` | Indicatori generali relativi al mercato del lavoro, tra cui disoccupazione, laureati e NEET. |
-| `disoccupazione_demografica` | Indicatori relativi alla disoccupazione giovanile e alle differenze di genere. |
-
-## Tecniche SQL utilizzate
-
-- **JOIN:** collegamento tra tabelle correlate.
-- **GROUP BY:** raggruppamento dei dati per effettuare analisi aggregate.
-- **Funzioni aggregate:** calcolo di valori medi mediante `AVG()`.
-- **CASE WHEN:** classificazione delle regioni per macroarea geografica.
-- **ROUND():** arrotondamento dei risultati numerici.
-- **CREATE VIEW:** creazione di una vista per organizzare e riutilizzare una query.
-
-## Esempio di analisi
-
-La vista `vista_macroaree_2022` raggruppa le regioni italiane in macroaree geografiche e calcola:
-
-- la media del tasso di disoccupazione giovanile;
-- il divario medio tra il tasso di disoccupazione femminile e quello maschile.
-
-L'analisi utilizza il collegamento tra le tabelle regionali e demografiche e aggrega i risultati per macroarea geografica.
-
-## Analisi realizzate
-
-Il progetto utilizza query SQL per organizzare e analizzare gli indicatori del mercato del lavoro italiano a livello regionale.
-
-Le interrogazioni consentono di collegare tabelle mediante `JOIN`, aggregare i dati per macroarea geografica e calcolare valori medi. In particolare, la vista `vista_macroaree_2022` permette di confrontare la media del tasso di disoccupazione giovanile e il divario tra i tassi di disoccupazione femminile e maschile nelle diverse macroaree.
-
-I risultati numerici e le relative interpretazioni saranno aggiunti dopo la verifica degli output delle query e della coerenza dei dati con le fonti statistiche originali.
-
-## Tecnologie
-
-- **SQL:** linguaggio utilizzato per la gestione e l'analisi dei dati.
-- **MySQL tramite XAMPP:** ambiente utilizzato per gestire il database ed eseguire le query.
-- **GitHub:** piattaforma utilizzata per pubblicare il codice e documentare il progetto.
-
-## Come eseguire il progetto
-
-1. Installare e avviare l'ambiente database utilizzato per il progetto.
-2. Accedere al database tramite lo strumento utilizzato durante lo sviluppo.
-3. Creare o selezionare il database `progetto_tesi`, se non è già presente.
-4. Importare ed eseguire lo script `progetto_tesi.sql`.
-5. Eseguire le query e verificare i risultati ottenuti.
-
-Prima dell'esecuzione, verificare la compatibilità dello script con il server MySQL o MariaDB installato.
-
-## Autrice
-
-Progetto personale sviluppato per approfondire l'utilizzo di SQL nell'analisi dei dati.
-
-**Repository:** [SQL Eurostat Analysis – GitHub](https://github.com/GiordanaB/SQL-Eurostat-Analysis)
+Nota metodologica: le percentuali riportate sono medie semplici dei valori regionali all'interno di ciascuna macroarea e non tassi aggregati ponderati per popolazione.
+File del progetto
+- progetto_tesi.sql: esportazione SQL del database, comprensiva della struttura e dei dati.
+- README.md: descrizione del progetto, degli strumenti e dei risultati principali.
+Fonti dei dati
+- Eurostat – Regional unemployment rates (lfst_r_lfu3rt): dati relativi ai tassi di disoccupazione regionali. Consulta il dataset.
+- INPS – Rendiconti sociali: fonte consultata per i dati relativi alla quota di giovani NEET.
+- AlmaLaurea: fonte dei dati relativi alla percentuale di laureati.
+Competenze dimostrate
+- Gestione di database relazionali.
+- Interrogazione di dati con SQL.
+- Collegamento di tabelle mediante INNER JOIN.
+- Aggregazione e confronto di indicatori.
+- Analisi descrittiva dei dati per area geografica e periodo.
+- Interpretazione prudente dei risultati statistici.
