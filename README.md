@@ -1,34 +1,84 @@
-# SQL-Eurostat-Analysis
-Analisi SQL su dati Eurostat per il mercato del lavoro italiano
-# SQL Eurostat Analysis - Mercato del Lavoro Italiano
+# SQL Eurostat Analysis – Mercato del lavoro italiano
 
-Progetto di analisi dati focalizzato sul mercato del lavoro italiano (disoccupazione giovanile e divario di genere) basato su dati **Eurostat**.
+## Descrizione del progetto
 
-## 📊 Struttura del Database (`progetto_tesi`)
-Il database relazionale è strutturato nelle seguenti tabelle:
-- `regioni`: Anagrafica delle regioni italiane.
-- `anni`: Riferimento temporale delle rilevazioni.
-- `indicatori_regionali`: Dati generali sull'occupazione e sulla forza lavoro.
-- `disoccupazione_demografica`: Indicatori specifici su disoccupazione giovanile e differenze di genere.
+Progetto personale di analisi dei dati sul mercato del lavoro italiano mediante SQL. L'obiettivo è organizzare e interrogare dati relativi all'occupazione e alla disoccupazione, con particolare attenzione alle differenze territoriali, alla disoccupazione giovanile e al divario di genere.
 
-## 🔍 Analisi e Query Principali
-Il progetto include query avanzate con `JOIN`, aggregazioni (`GROUP BY`) e logica condizionale (`CASE WHEN`). 
+Il progetto applica concetti di database relazionali e interrogazioni SQL per analizzare e confrontare gli indicatori del mercato del lavoro.
 
-### Vista Macroaree 2022 (`vista_macroaree_2022`)
-Query per la riclassificazione territoriale delle regioni in **Nord**, **Centro** e **Mezzogiorno**, calcolando la media della disoccupazione giovanile e il divario medio di genere:
+## Obiettivi
 
-```sql
-CREATE VIEW vista_macroaree_2022 AS
-SELECT 
-    CASE 
-        WHEN r.nome_regione IN ('Piemonte', 'Valle_Daosta', 'Liguria', 'Lombardia', 'Trentino_Alto_Adige', 'Veneto', 'Friuli_Venezia_Giulia', 'Emilia_Romagna') THEN 'Nord'
-        WHEN r.nome_regione IN ('Toscana', 'Umbria', 'Marche', 'Lazio') THEN 'Centro'
-        ELSE 'Mezzogiorno'
-    END AS macroarea,
-    ROUND(AVG(d.tasso_disoccupazione_giovani), 2) AS media_disoccupazione_giovani,
-    ROUND(AVG(d.tasso_disoccupazione_donne - d.tasso_disoccupazione_uomini), 2) AS divario_medio_genere
-FROM disoccupazione_demografica d
-JOIN regioni r ON d.id_regione = r.id_regione
-WHERE d.anno = 2022
-GROUP BY macroarea
-ORDER BY media_disoccupazione_giovani DESC;
+- Analizzare gli indicatori occupazionali a livello regionale.
+- Esaminare le differenze tra le macroaree geografiche italiane.
+- Approfondire la disoccupazione giovanile e le differenze di genere.
+- Utilizzare query SQL per aggregare e confrontare i dati.
+
+## Dati e fonti
+
+- **Fonte:** Eurostat.
+- **Area geografica:** regioni italiane.
+- **Periodo analizzato:** 2022–2024.
+- **Indicatori:** tasso di disoccupazione generale, percentuale di laureati, quota di giovani NEET, tasso di disoccupazione maschile, tasso di disoccupazione femminile e tasso di disoccupazione giovanile.
+
+**Fonte dati:** [Eurostat – Regional unemployment rates (lfst_r_lfu3rt)](https://ec.europa.eu/eurostat/databrowser/product/view/lfst_r_lfu3rt).
+
+*Nota: verificare che la fonte citata copra tutti gli indicatori utilizzati. Se necessario, aggiungere i collegamenti agli altri dataset.*
+
+## Struttura del database
+
+Il database relazionale `progetto_tesi` è organizzato nelle seguenti tabelle:
+
+| Tabella | Descrizione |
+|---|---|
+| `regioni` | Anagrafica delle regioni italiane. |
+| `anni` | Riferimenti temporali delle rilevazioni. |
+| `indicatori_regionali` | Indicatori generali relativi al mercato del lavoro, tra cui disoccupazione, laureati e NEET. |
+| `disoccupazione_demografica` | Indicatori relativi alla disoccupazione giovanile e alle differenze di genere. |
+
+## Tecniche SQL utilizzate
+
+- **JOIN:** collegamento tra tabelle correlate.
+- **GROUP BY:** raggruppamento dei dati per effettuare analisi aggregate.
+- **Funzioni aggregate:** calcolo di valori medi mediante `AVG()`.
+- **CASE WHEN:** classificazione delle regioni per macroarea geografica.
+- **ROUND():** arrotondamento dei risultati numerici.
+- **CREATE VIEW:** creazione di una vista per organizzare e riutilizzare una query.
+
+## Esempio di analisi
+
+La vista `vista_macroaree_2022` raggruppa le regioni italiane in macroaree geografiche e calcola:
+
+- la media del tasso di disoccupazione giovanile;
+- il divario medio tra il tasso di disoccupazione femminile e quello maschile.
+
+L'analisi utilizza il collegamento tra le tabelle regionali e demografiche e aggrega i risultati per macroarea geografica.
+
+## Analisi realizzate
+
+Il progetto utilizza query SQL per organizzare e analizzare gli indicatori del mercato del lavoro italiano a livello regionale.
+
+Le interrogazioni consentono di collegare tabelle mediante `JOIN`, aggregare i dati per macroarea geografica e calcolare valori medi. In particolare, la vista `vista_macroaree_2022` permette di confrontare la media del tasso di disoccupazione giovanile e il divario tra i tassi di disoccupazione femminile e maschile nelle diverse macroaree.
+
+I risultati numerici e le relative interpretazioni saranno aggiunti dopo la verifica degli output delle query e della coerenza dei dati con le fonti statistiche originali.
+
+## Tecnologie
+
+- **SQL:** linguaggio utilizzato per la gestione e l'analisi dei dati.
+- **MySQL tramite XAMPP:** ambiente utilizzato per gestire il database ed eseguire le query.
+- **GitHub:** piattaforma utilizzata per pubblicare il codice e documentare il progetto.
+
+## Come eseguire il progetto
+
+1. Installare e avviare l'ambiente database utilizzato per il progetto.
+2. Accedere al database tramite lo strumento utilizzato durante lo sviluppo.
+3. Creare o selezionare il database `progetto_tesi`, se non è già presente.
+4. Importare ed eseguire lo script `progetto_tesi.sql`.
+5. Eseguire le query e verificare i risultati ottenuti.
+
+Prima dell'esecuzione, verificare la compatibilità dello script con il server MySQL o MariaDB installato.
+
+## Autrice
+
+Progetto personale sviluppato per approfondire l'utilizzo di SQL nell'analisi dei dati.
+
+**Repository:** [SQL Eurostat Analysis – GitHub](https://github.com/GiordanaB/SQL-Eurostat-Analysis)
